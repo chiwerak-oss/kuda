@@ -72,17 +72,17 @@
             border-bottom: 1px solid rgba(255, 105, 180, 0.1);
         }
 
-            nav a {
-                color: #ffffff;
-                text-decoration: none;
-                font-size: 1rem;
-                font-weight: 500;
-                transition: color 0.3s;
-            }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-                nav a:hover {
-                    color: #ff69b4;
-                }
+        nav a:hover {
+            color: #ff69b4;
+        }
 
         /* === Music Player (in Nav) === */
         .music-player {
@@ -95,33 +95,33 @@
             padding: 6px 14px 6px 8px;
         }
 
-            .music-player button {
-                background: none;
-                border: none;
-                color: #ffffff;
-                font-size: 1.1rem;
-                cursor: pointer;
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: background 0.2s, color 0.2s;
-            }
+        .music-player button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
 
-                .music-player button:hover {
-                    background: rgba(255, 105, 180, 0.25);
-                    color: #ff69b4;
-                }
+        .music-player button:hover {
+            background: rgba(255, 105, 180, 0.25);
+            color: #ff69b4;
+        }
 
-            .music-player #play-pause-btn {
-                background: linear-gradient(90deg, #ff007f, #ff4e50);
-            }
+        .music-player #play-pause-btn {
+            background: linear-gradient(90deg, #ff007f, #ff4e50);
+        }
 
-                .music-player #play-pause-btn:hover {
-                    background: linear-gradient(90deg, #ff4e50, #ff007f);
-                }
+        .music-player #play-pause-btn:hover {
+            background: linear-gradient(90deg, #ff4e50, #ff007f);
+        }
 
         .music-info {
             display: flex;
@@ -148,7 +148,7 @@
             cursor: pointer;
         }
 
-        /* Tap-to-play fallback pill */
+        /* Tap-to-play fallback pill for the music player */
         #music-unlock {
             position: fixed;
             bottom: 24px;
@@ -167,94 +167,50 @@
             animation: pulse 2s infinite;
         }
 
-        /* === Loading Screen & Fireworks === */
+        /* === Loading Screen (Intro Video) === */
         #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #0d0914;
+            background-color: #000000;
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
+            overflow: hidden;
             transition: opacity 1s ease-out;
         }
 
-        .loader-content {
-            text-align: center;
-            z-index: 10;
-        }
-
-        .heart {
-            font-size: 120px;
-            animation: heartbeat 1s infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 0, 100, 0.8));
-        }
-
-        .countdown {
-            font-size: 50px;
-            color: white;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        @keyframes heartbeat {
-            0% {
-                transform: scale(1);
-            }
-
-            14% {
-                transform: scale(1.3);
-            }
-
-            28% {
-                transform: scale(1);
-            }
-
-            42% {
-                transform: scale(1.3);
-            }
-
-            70% {
-                transform: scale(1);
-            }
-        }
-
-        #fireworksCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
+        #intro-video {
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 5;
-            display: none;
+            object-fit: cover;
         }
 
-        #fireworks-msg {
+        #sound-unlock {
             position: absolute;
-            top: 50%;
+            bottom: 40px;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            font-size: 4.5rem;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #ff007f, #ff4e50);
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 30px;
             font-weight: bold;
-            color: #ffffff;
-            text-align: center;
-            text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff007f;
-            opacity: 0;
-            z-index: 6;
-            transition: opacity 0.8s, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            width: 100%;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 0, 127, 0.5);
+            z-index: 10000;
+            animation: pulse 2s infinite;
         }
 
-            #fireworks-msg.show {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
 
         /* === Hero Section === */
         .hero {
@@ -315,9 +271,9 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-            .btn:hover {
-                transform: translateY(-3px);
-            }
+        .btn:hover {
+            transform: translateY(-3px);
+        }
 
         .btn-primary {
             background: linear-gradient(90deg, #ff007f, #ff4e50);
@@ -330,6 +286,94 @@
             color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(5px);
+        }
+
+        /* === In Motion Memories: Two-Column Slideshow === */
+        .slideshow-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 800px) {
+            .slideshow-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .slideshow-col {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 105, 180, 0.15);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .slideshow-col-label {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ff69b4;
+            margin-bottom: 14px;
+        }
+
+        .slideshow-viewport {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            max-height: 560px;
+            margin: 0 auto;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .slideshow-viewport video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(13, 9, 20, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(6px);
+            color: #fff;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            z-index: 5;
+            user-select: none;
+        }
+
+        .slide-arrow:hover {
+            background: linear-gradient(135deg, #ff007f, #ff4e50);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+        }
+
+        .slide-arrow.prev { left: 14px; }
+        .slide-arrow.next { right: 14px; }
+
+        .slide-counter {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #b0a8b9;
+            letter-spacing: 1px;
         }
 
         /* === Interactive Envelope Section === */
@@ -415,11 +459,11 @@
             font-family: 'Georgia', serif;
         }
 
-            .letter p {
-                margin: 10px 0;
-                font-size: 1rem;
-                line-height: 1.5;
-            }
+        .letter p {
+            margin: 10px 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
 
         .envelope-wrapper.open .flap {
             transform: rotateX(180deg);
@@ -444,21 +488,7 @@
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% {
-                opacity: 0.6;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0.6;
-            }
-        }
-
-        /* === Image & Video Grids === */
+        /* === Image Grids (Gallery / Memories) === */
         .media-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -466,20 +496,20 @@
             margin-top: 40px;
         }
 
-            .media-grid img, .media-grid video {
-                width: 100%;
-                height: 380px;
-                object-fit: cover;
-                border-radius: 12px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-                background: rgba(0,0,0,0.3);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
+        .media-grid img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-                .media-grid img:hover, .media-grid video:hover {
-                    transform: translateY(-8px);
-                    box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3);
-                }
+        .media-grid img:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3);
+        }
 
         @media (max-width: 640px) {
             nav {
@@ -500,15 +530,14 @@
         <video id="bg-video" autoplay muted playsinline></video>
     </div>
 
-    <!-- Loading Screen & Fireworks -->
+    <!-- Loading Screen: Intro Video (replaces the old heart/countdown) -->
     <div id="loading-screen">
-        <div class="loader-content" id="loader-content">
-            <div class="heart">❤️</div>
-            <div class="countdown" id="countdown">3</div>
-        </div>
-        <div id="fireworks-msg">Happy Birthday Kuda</div>
-        <canvas id="fireworksCanvas"></canvas>
+        <video id="intro-video" muted playsinline></video>
+        <div id="sound-unlock">🔊 Tap for Sound</div>
     </div>
+
+    <!-- Fireworks sound effect, synced to the intro video -->
+    <audio id="fireworks-audio" preload="auto" src="fireworks-sound.mp3"></audio>
 
     <!-- Navigation Bar -->
     <nav>
@@ -529,10 +558,10 @@
         </div>
     </nav>
 
-    <!-- Tap-to-unlock pill -->
+    <!-- Tap-to-unlock pill (backup, only shows if music still didn't start) -->
     <div id="music-unlock">🔊 Tap to start the music</div>
 
-    <!-- Hidden audio element -->
+    <!-- Hidden audio element for background music -->
     <audio id="bg-audio" preload="auto"></audio>
 
     <!-- Hero / Header -->
@@ -549,27 +578,33 @@
         </div>
     </section>
 
-    <!-- Video Grid Section -->
+    <!-- In Motion Memories: Two-Column Slideshow -->
     <section id="videos">
         <h2 class="section-title">In Motion Memories</h2>
-        <div class="media-grid">
-            <video src="VID-20250915-WA0033.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20250919-WA0015.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20251204-WA0034.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260305-WA0000.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20251229-WA0071.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20251231-WA0171.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20251231-WA0197.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260211-WA0078.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260214-WA0013.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260406-WA0062.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260412-WA0003.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260608-WA0003.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260710-WA0009.mp4" autoplay loop muted playsinline></video>
-            <video src="20260309_081737.mp4" autoplay loop muted playsinline></video>
-            <video src="20251028_101733.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20250923-WA0020.mp4" autoplay loop muted playsinline></video>
-            <video src="VID-20260327-WA0018.mp4" autoplay loop muted playsinline></video>
+        <div class="slideshow-wrap">
+
+            <!-- Left Reel -->
+            <div class="slideshow-col">
+                <div class="slideshow-col-label">Reel One</div>
+                <div class="slideshow-viewport">
+                    <button class="slide-arrow prev" id="left-prev" aria-label="Previous video">‹</button>
+                    <video id="left-video" autoplay muted playsinline></video>
+                    <button class="slide-arrow next" id="left-next" aria-label="Next video">›</button>
+                </div>
+                <div class="slide-counter" id="left-counter"></div>
+            </div>
+
+            <!-- Right Reel -->
+            <div class="slideshow-col">
+                <div class="slideshow-col-label">Reel Two</div>
+                <div class="slideshow-viewport">
+                    <button class="slide-arrow prev" id="right-prev" aria-label="Previous video">‹</button>
+                    <video id="right-video" autoplay muted playsinline></video>
+                    <button class="slide-arrow next" id="right-next" aria-label="Next video">›</button>
+                </div>
+                <div class="slide-counter" id="right-counter"></div>
+            </div>
+
         </div>
     </section>
 
@@ -592,7 +627,6 @@
             <img src="IMG-20260715-WA0004.jpg" alt="Kudakwashe">
             <img src="IMG-20260521-WA0001.jpg" alt="Kudakwashe">
             <img src="IMG-20260327-WA0017.jpg" alt="Kudakwashe">
-            <!-- Files from screenshots added below -->
             <img src="IMG-20260430-WA0023.jpg" alt="Kudakwashe">
             <img src="IMG-20251011-WA0030.jpg" alt="Kudakwashe">
             <img src="IMG-20250919-WA0008(1).jpg" alt="Kudakwashe">
@@ -615,7 +649,6 @@
             <img src="IMG-20260101-WA0102.jpg" alt="Group">
             <img src="IMG-20260211-WA0073.jpg" alt="Donuts">
             <img src="IMG-20260217-WA0012.jpg" alt="Muffins">
-            <!-- Files from screenshots added below -->
             <img src="IMG-20251015-WA0049.jpg" alt="Sweet Memory">
             <img src="IMG-20251015-WA0050(1).jpg" alt="Sweet Memory">
             <img src="IMG-20251221-WA0046.jpg" alt="Sweet Memory">
@@ -645,215 +678,260 @@
     </section>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            let count = 3;
-            const countdownEl = document.getElementById('countdown');
-            const loaderContent = document.getElementById('loader-content');
-            const fireworksCanvas = document.getElementById('fireworksCanvas');
-            const fireworksMsg = document.getElementById('fireworks-msg');
-            const loadingScreen = document.getElementById('loading-screen');
+    document.addEventListener("DOMContentLoaded", () => {
 
-            document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
 
-            const timer = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    countdownEl.textContent = count;
-                } else {
-                    clearInterval(timer);
-                    loaderContent.style.display = 'none';
-                    fireworksCanvas.style.display = 'block';
-                    fireworksMsg.classList.add('show');
-                    startFireworks();
-                    startBackgroundMusic();
+        /* ======================================================
+           INTRO VIDEO LOADING SCREEN
+           - Plays the countdown+fireworks video full screen
+           - Fires the fireworks sound at ~10s (when fireworks
+             visually start in the video)
+           - When the video ends, fades out and starts the site
+             + background music
+           ====================================================== */
+        const introVideo = document.getElementById('intro-video');
+        const soundUnlock = document.getElementById('sound-unlock');
+        const fireworksAudio = document.getElementById('fireworks-audio');
+        const loadingScreen = document.getElementById('loading-screen');
 
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        setTimeout(() => {
-                            loadingScreen.style.display = 'none';
-                            document.body.style.overflow = 'auto';
-                        }, 1000);
-                    }, 3800);
+        const FIREWORKS_SOUND_START = 9.8; // seconds into the intro video
+        let audioUnlocked = false;
+        let fireworksSoundPlayed = false;
+        let introFinished = false;
+
+        introVideo.src = 'intro-video.mp4';
+        introVideo.play().catch(() => {
+            // Muted autoplay should always be allowed, but just in case:
+            console.log('Intro video autoplay was blocked.');
+        });
+
+        soundUnlock.addEventListener('click', () => {
+            audioUnlocked = true;
+            soundUnlock.style.display = 'none';
+            // If we're already past the fireworks moment, play the sound now
+            if (introVideo.currentTime >= FIREWORKS_SOUND_START && !fireworksSoundPlayed) {
+                fireworksSoundPlayed = true;
+                fireworksAudio.currentTime = 0;
+                fireworksAudio.play().catch(() => {});
+            }
+        });
+
+        introVideo.addEventListener('timeupdate', () => {
+            if (!fireworksSoundPlayed && introVideo.currentTime >= FIREWORKS_SOUND_START) {
+                fireworksSoundPlayed = true;
+                if (audioUnlocked) {
+                    fireworksAudio.currentTime = 0;
+                    fireworksAudio.play().catch(() => {});
                 }
+            }
+
+            // Safety net: fade out a touch before the true end in case
+            // the 'ended' event is unreliable on some mobile browsers
+            if (introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.15) {
+                finishIntro();
+            }
+        });
+
+        introVideo.addEventListener('ended', finishIntro);
+
+        function finishIntro() {
+            if (introFinished) return;
+            introFinished = true;
+
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }, 1000);
 
-            // --- Updated Background Video Playlist Array ---
-            const memoryVideos = [
-                'VID-20250915-WA0033.mp4',
-                'VID-20250919-WA0015.mp4',
-                'VID-20251204-WA0034.mp4',
-                'VID-20260305-WA0000.mp4',
-                'VID-20251229-WA0071.mp4',
-                'VID-20251231-WA0171.mp4',
-                'VID-20251231-WA0197.mp4',
-                'VID-20260211-WA0078.mp4',
-                'VID-20260214-WA0013.mp4',
-                'VID-20260406-WA0062.mp4',
-                'VID-20260412-WA0003.mp4',
-                'VID-20260608-WA0003.mp4',
-                'VID-20260710-WA0009.mp4',
-                '20260309_081737.mp4',
-                '20251028_101733.mp4',
-                'VID-20250923-WA0020.mp4',
-                'VID-20260327-WA0018.mp4'
-            ];
-            const BG_VIDEO_CUTOFF_SECONDS = 20;
+            startBackgroundMusic();
+        }
 
-            let currentVideoIndex = 0;
-            const bgVideo = document.getElementById('bg-video');
+        /* ======================================================
+           FULL-PAGE BACKGROUND VIDEO PLAYLIST (behind content)
+           Cuts each video at 20 seconds
+           ====================================================== */
+        const memoryVideos = [
+            'VID-20250915-WA0033.mp4',
+            'VID-20250919-WA0015.mp4',
+            'VID-20251204-WA0034.mp4',
+            'VID-20260305-WA0000.mp4',
+            'VID-20251229-WA0071.mp4',
+            'VID-20251231-WA0171.mp4',
+            'VID-20251231-WA0197.mp4',
+            'VID-20260211-WA0078.mp4',
+            'VID-20260214-WA0013.mp4',
+            'VID-20260406-WA0062.mp4',
+            'VID-20260412-WA0003.mp4',
+            'VID-20260608-WA0003.mp4',
+            'VID-20260710-WA0009.mp4',
+            '20260309_081737.mp4',
+            '20251028_101733.mp4',
+            'VID-20250923-WA0020.mp4',
+            'VID-20260327-WA0018.mp4'
+        ];
+        const BG_VIDEO_CUTOFF_SECONDS = 20;
 
-            function playNextBackgroundVideo() {
-                currentVideoIndex = (currentVideoIndex + 1) % memoryVideos.length;
-                bgVideo.src = memoryVideos[currentVideoIndex];
-                bgVideo.play().catch(e => console.log("Autoplay restricted:", e));
-            }
+        let currentBgIndex = 0;
+        const bgVideo = document.getElementById('bg-video');
 
-            bgVideo.src = memoryVideos[currentVideoIndex];
+        function playNextBackgroundVideo() {
+            currentBgIndex = (currentBgIndex + 1) % memoryVideos.length;
+            bgVideo.src = memoryVideos[currentBgIndex];
             bgVideo.play().catch(e => console.log("Autoplay restricted:", e));
+        }
 
-            bgVideo.addEventListener('timeupdate', () => {
-                if (bgVideo.currentTime >= BG_VIDEO_CUTOFF_SECONDS) {
-                    playNextBackgroundVideo();
-                }
-            });
+        bgVideo.src = memoryVideos[currentBgIndex];
+        bgVideo.play().catch(e => console.log("Autoplay restricted:", e));
 
-            bgVideo.addEventListener('ended', playNextBackgroundVideo);
+        bgVideo.addEventListener('timeupdate', () => {
+            if (bgVideo.currentTime >= BG_VIDEO_CUTOFF_SECONDS) {
+                playNextBackgroundVideo();
+            }
+        });
 
-            const playlist = [
-                { title: "Track 1", artist: "", src: "track1.mp3" },
-                { title: "Track 2", artist: "", src: "track2.mp3" },
-                { title: "Track 3", artist: "", src: "track3.mp3" },
-                { title: "Track 4", artist: "", src: "track4.mp3" },
-                { title: "Track 5", artist: "", src: "track5.mp3" },
-                { title: "Track 6", artist: "", src: "track6.mp3" },
-                { title: "Track 7", artist: "", src: "track7.mp3" },
-                { title: "Track 8", artist: "", src: "track8.mp3" }
-            ];
+        bgVideo.addEventListener('ended', playNextBackgroundVideo);
 
-            let currentTrackIndex = 0;
-            const audio = document.getElementById('bg-audio');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const musicTitleEl = document.getElementById('music-title');
-            const musicSelectEl = document.getElementById('music-select');
-            const musicUnlockEl = document.getElementById('music-unlock');
+        /* ======================================================
+           IN MOTION MEMORIES: TWO-COLUMN SLIDESHOW
+           ====================================================== */
+        const leftVideos = [
+            'VID-20250915-WA0033.mp4',
+            'VID-20250919-WA0015.mp4',
+            'VID-20251204-WA0034.mp4',
+            'VID-20260305-WA0000.mp4',
+            'VID-20251229-WA0071.mp4',
+            'VID-20251231-WA0171.mp4',
+            'VID-20251231-WA0197.mp4',
+            'VID-20260211-WA0078.mp4',
+            'VID-20260214-WA0013.mp4'
+        ];
 
-            playlist.forEach((track, i) => {
-                const opt = document.createElement('option');
-                opt.value = i;
-                opt.textContent = `${track.title} — ${track.artist}`;
-                musicSelectEl.appendChild(opt);
-            });
+        const rightVideos = [
+            'VID-20260406-WA0062.mp4',
+            'VID-20260412-WA0003.mp4',
+            'VID-20260608-WA0003.mp4',
+            'VID-20260710-WA0009.mp4',
+            '20260309_081737.mp4',
+            '20251028_101733.mp4',
+            'VID-20250923-WA0020.mp4',
+            'VID-20260327-WA0018.mp4'
+        ];
 
-            function loadTrack(index, autoplay) {
-                currentTrackIndex = (index + playlist.length) % playlist.length;
-                const track = playlist[currentTrackIndex];
-                audio.src = track.src;
-                musicTitleEl.textContent = `${track.title} — ${track.artist}`;
-                musicSelectEl.value = currentTrackIndex;
-                if (autoplay) {
-                    audio.play().then(() => {
-                        playPauseBtn.textContent = '⏸';
-                        musicUnlockEl.style.display = 'none';
-                    }).catch(() => {
-                        playPauseBtn.textContent = '▶';
-                        musicUnlockEl.style.display = 'block';
-                    });
-                }
+        function setupSlideshow(videos, videoEl, counterEl) {
+            let idx = 0;
+
+            function show(i) {
+                idx = (i + videos.length) % videos.length;
+                videoEl.src = videos[idx];
+                videoEl.play().catch(() => {});
+                counterEl.textContent = (idx + 1) + ' / ' + videos.length;
             }
 
-            function startBackgroundMusic() {
-                loadTrack(0, true);
-            }
+            show(0);
 
-            playPauseBtn.addEventListener('click', () => {
-                if (audio.paused) {
-                    audio.play().then(() => {
-                        playPauseBtn.textContent = '⏸';
-                        musicUnlockEl.style.display = 'none';
-                    }).catch(() => {
-                        musicUnlockEl.style.display = 'block';
-                    });
-                } else {
-                    audio.pause();
-                    playPauseBtn.textContent = '▶';
-                }
-            });
+            return {
+                next: () => show(idx + 1),
+                prev: () => show(idx - 1)
+            };
+        }
 
-            prevBtn.addEventListener('click', () => loadTrack(currentTrackIndex - 1, true));
-            nextBtn.addEventListener('click', () => loadTrack(currentTrackIndex + 1, true));
-            musicSelectEl.addEventListener('change', (e) => loadTrack(parseInt(e.target.value, 10), true));
-            audio.addEventListener('ended', () => loadTrack(currentTrackIndex + 1, true));
-            musicUnlockEl.addEventListener('click', () => {
+        const leftSlideshow = setupSlideshow(
+            leftVideos,
+            document.getElementById('left-video'),
+            document.getElementById('left-counter')
+        );
+
+        const rightSlideshow = setupSlideshow(
+            rightVideos,
+            document.getElementById('right-video'),
+            document.getElementById('right-counter')
+        );
+
+        document.getElementById('left-prev').addEventListener('click', leftSlideshow.prev);
+        document.getElementById('left-next').addEventListener('click', leftSlideshow.next);
+        document.getElementById('right-prev').addEventListener('click', rightSlideshow.prev);
+        document.getElementById('right-next').addEventListener('click', rightSlideshow.next);
+
+        /* ======================================================
+           MUSIC PLAYER
+           ====================================================== */
+        const playlist = [
+            { title: "Track 1", artist: "", src: "track1.mp3" },
+            { title: "Track 2", artist: "", src: "track2.mp3" },
+            { title: "Track 3", artist: "", src: "track3.mp3" },
+            { title: "Track 4", artist: "", src: "track4.mp3" },
+            { title: "Track 5", artist: "", src: "track5.mp3" },
+            { title: "Track 6", artist: "", src: "track6.mp3" },
+            { title: "Track 7", artist: "", src: "track7.mp3" },
+            { title: "Track 8", artist: "", src: "track8.mp3" }
+        ];
+
+        let currentTrackIndex = 0;
+        const audio = document.getElementById('bg-audio');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const musicTitleEl = document.getElementById('music-title');
+        const musicSelectEl = document.getElementById('music-select');
+        const musicUnlockEl = document.getElementById('music-unlock');
+
+        playlist.forEach((track, i) => {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = track.artist ? `${track.title} — ${track.artist}` : track.title;
+            musicSelectEl.appendChild(opt);
+        });
+
+        function loadTrack(index, autoplay) {
+            currentTrackIndex = (index + playlist.length) % playlist.length;
+            const track = playlist[currentTrackIndex];
+            audio.src = track.src;
+            musicTitleEl.textContent = track.artist ? `${track.title} — ${track.artist}` : track.title;
+            musicSelectEl.value = currentTrackIndex;
+            if (autoplay) {
                 audio.play().then(() => {
                     playPauseBtn.textContent = '⏸';
                     musicUnlockEl.style.display = 'none';
+                }).catch(() => {
+                    playPauseBtn.textContent = '▶';
+                    musicUnlockEl.style.display = 'block';
                 });
-            });
+            }
+        }
 
-            loadTrack(0, false);
+        function startBackgroundMusic() {
+            loadTrack(0, true);
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    playPauseBtn.textContent = '⏸';
+                    musicUnlockEl.style.display = 'none';
+                }).catch(() => {
+                    musicUnlockEl.style.display = 'block';
+                });
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶';
+            }
         });
 
-        function startFireworks() {
-            const canvas = document.getElementById('fireworksCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        prevBtn.addEventListener('click', () => loadTrack(currentTrackIndex - 1, true));
+        nextBtn.addEventListener('click', () => loadTrack(currentTrackIndex + 1, true));
+        musicSelectEl.addEventListener('change', (e) => loadTrack(parseInt(e.target.value, 10), true));
+        audio.addEventListener('ended', () => loadTrack(currentTrackIndex + 1, true));
+        musicUnlockEl.addEventListener('click', () => {
+            audio.play().then(() => {
+                playPauseBtn.textContent = '⏸';
+                musicUnlockEl.style.display = 'none';
+            });
+        });
 
-            const particles = [];
-            const colors = ['#ff0000', '#ffd700', '#ff69b4', '#00ffff', '#ffffff'];
-
-            class Particle {
-                constructor(x, y, color) {
-                    this.x = x; this.y = y; this.color = color;
-                    this.velocity = { x: (Math.random() - 0.5) * 15, y: (Math.random() - 0.5) * 15 };
-                    this.alpha = 1; this.friction = 0.96; this.gravity = 0.1;
-                }
-                draw() {
-                    ctx.save();
-                    ctx.globalAlpha = this.alpha;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2, false);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
-                    ctx.restore();
-                }
-                update() {
-                    this.draw();
-                    this.velocity.x *= this.friction;
-                    this.velocity.y *= this.friction;
-                    this.velocity.y += this.gravity;
-                    this.x += this.velocity.x;
-                    this.y += this.velocity.y;
-                    this.alpha -= 0.012;
-                }
-            }
-
-            for (let i = 0; i < 6; i++) {
-                setTimeout(() => {
-                    const x = Math.random() * (canvas.width * 0.8) + (canvas.width * 0.1);
-                    const y = Math.random() * (canvas.height * 0.6);
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    for (let j = 0; j < 200; j++) {
-                        particles.push(new Particle(x, y, color));
-                    }
-                }, i * 500);
-            }
-
-            function animate() {
-                if (canvas.style.display === 'none') return;
-                requestAnimationFrame(animate);
-                ctx.fillStyle = 'rgba(13, 9, 20, 0.2)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                particles.forEach((particle, i) => {
-                    if (particle.alpha <= 0) particles.splice(i, 1);
-                    else particle.update();
-                });
-            }
-            animate();
-        }
+        loadTrack(0, false);
+    });
     </script>
 </body>
 </html>
