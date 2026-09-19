@@ -167,26 +167,79 @@
             animation: pulse 2s infinite;
         }
 
-        /* === Loading Screen (Intro Video) === */
+        /* === Loading Screen: Heartbeat Countdown + Fireworks === */
         #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #000000;
+            background-color: #0d0914;
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            transition: opacity 1s ease-out;
+            flex-direction: column;
+            transition: opacity 2s ease-out;
         }
 
-        #intro-video {
+        .loader-content {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .heart {
+            font-size: 120px;
+            animation: heartbeat 1s infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 0, 100, 0.8));
+        }
+
+        .countdown {
+            font-size: 50px;
+            color: white;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+
+        #fireworksCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            pointer-events: none;
+            z-index: 5;
+            display: none;
+        }
+
+        #fireworks-msg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            font-size: 4.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff007f;
+            opacity: 0;
+            z-index: 6;
+            transition: opacity 0.8s, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            width: 100%;
+        }
+
+        #fireworks-msg.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         #sound-unlock {
@@ -530,14 +583,19 @@
         <video id="bg-video" autoplay muted playsinline></video>
     </div>
 
-    <!-- Loading Screen: Intro Video (replaces the old heart/countdown) -->
+    <!-- Loading Screen: Heartbeat Countdown + Fireworks -->
     <div id="loading-screen">
-        <video id="intro-video" muted playsinline></video>
+        <div class="loader-content" id="loader-content">
+            <div class="heart">❤️</div>
+            <div class="countdown" id="countdown">3</div>
+        </div>
+        <div id="fireworks-msg">Happy Birthday Kuda</div>
+        <canvas id="fireworksCanvas"></canvas>
         <div id="sound-unlock">🔊 Tap for Sound</div>
     </div>
 
-    <!-- Fireworks sound effect, synced to the intro video -->
-    <audio id="fireworks-audio" preload="auto" src="fireworks-sound.mp3"></audio>
+    <!-- Fireworks sound effect, synced to the code-generated fireworks -->
+    <audio id="fireworks-audio" preload="auto" src="fireworksounds.mp3"></audio>
 
     <!-- Navigation Bar -->
     <nav>
@@ -683,70 +741,71 @@
         document.body.style.overflow = 'hidden';
 
         /* ======================================================
-           INTRO VIDEO LOADING SCREEN
-           - Plays the countdown+fireworks video full screen
-           - Fires the fireworks sound at ~10s (when fireworks
-             visually start in the video)
-           - When the video ends, fades out and starts the site
-             + background music
+           LOADING SCREEN: Heartbeat Countdown + Canvas Fireworks
+           - 3 second countdown
+           - Fireworks + "Happy Birthday Kuda" text
+           - Fireworks sound fires at the exact same moment the
+             fireworks animation starts (no guessing needed, since
+             we control both triggers directly)
+           - Holds a bit longer, then fades out slowly
            ====================================================== */
-        const introVideo = document.getElementById('intro-video');
+        let count = 3;
+        const countdownEl = document.getElementById('countdown');
+        const loaderContent = document.getElementById('loader-content');
+        const fireworksCanvas = document.getElementById('fireworksCanvas');
+        const fireworksMsg = document.getElementById('fireworks-msg');
+        const loadingScreen = document.getElementById('loading-screen');
         const soundUnlock = document.getElementById('sound-unlock');
         const fireworksAudio = document.getElementById('fireworks-audio');
-        const loadingScreen = document.getElementById('loading-screen');
 
-        const FIREWORKS_SOUND_START = 9.8; // seconds into the intro video
         let audioUnlocked = false;
         let fireworksSoundPlayed = false;
-        let introFinished = false;
-
-        introVideo.src = 'intro-video.mp4';
-        introVideo.play().catch(() => {
-            // Muted autoplay should always be allowed, but just in case:
-            console.log('Intro video autoplay was blocked.');
-        });
 
         soundUnlock.addEventListener('click', () => {
             audioUnlocked = true;
             soundUnlock.style.display = 'none';
-            // If we're already past the fireworks moment, play the sound now
-            if (introVideo.currentTime >= FIREWORKS_SOUND_START && !fireworksSoundPlayed) {
-                fireworksSoundPlayed = true;
+            // If the fireworks moment already happened before the tap, play it now
+            if (fireworksSoundPlayed === 'pending') {
                 fireworksAudio.currentTime = 0;
                 fireworksAudio.play().catch(() => {});
-            }
-        });
-
-        introVideo.addEventListener('timeupdate', () => {
-            if (!fireworksSoundPlayed && introVideo.currentTime >= FIREWORKS_SOUND_START) {
                 fireworksSoundPlayed = true;
-                if (audioUnlocked) {
-                    fireworksAudio.currentTime = 0;
-                    fireworksAudio.play().catch(() => {});
-                }
-            }
-
-            // Safety net: fade out a touch before the true end in case
-            // the 'ended' event is unreliable on some mobile browsers
-            if (introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.15) {
-                finishIntro();
             }
         });
 
-        introVideo.addEventListener('ended', finishIntro);
-
-        function finishIntro() {
-            if (introFinished) return;
-            introFinished = true;
-
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 1000);
-
-            startBackgroundMusic();
+        function playFireworksSound() {
+            if (audioUnlocked) {
+                fireworksAudio.currentTime = 0;
+                fireworksAudio.play().catch(() => {});
+                fireworksSoundPlayed = true;
+            } else {
+                // Mark that it wants to play - will fire the moment she taps
+                fireworksSoundPlayed = 'pending';
+            }
         }
+
+        const timer = setInterval(() => {
+            count--;
+            if (count > 0) {
+                countdownEl.textContent = count;
+            } else {
+                clearInterval(timer);
+                loaderContent.style.display = 'none';
+                fireworksCanvas.style.display = 'block';
+                fireworksMsg.classList.add('show');
+                startFireworks();
+                playFireworksSound();
+                startBackgroundMusic();
+
+                // Hold the fireworks a bit longer, then fade out slowly
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 2000); // matches the slower 2s CSS fade
+                }, 4800);
+            }
+        }, 1000);
 
         /* ======================================================
            FULL-PAGE BACKGROUND VIDEO PLAYLIST (behind content)
@@ -932,6 +991,67 @@
 
         loadTrack(0, false);
     });
+
+    /* === Canvas Fireworks Animation === */
+    function startFireworks() {
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const colors = ['#ff0000', '#ffd700', '#ff69b4', '#00ffff', '#ffffff'];
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                this.velocity = { x: (Math.random() - 0.5) * 15, y: (Math.random() - 0.5) * 15 };
+                this.alpha = 1; this.friction = 0.96; this.gravity = 0.1;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.draw();
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.velocity.y += this.gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.012;
+            }
+        }
+
+        for (let i = 0; i < 6; i++) {
+            setTimeout(() => {
+                const x = Math.random() * (canvas.width * 0.8) + (canvas.width * 0.1);
+                const y = Math.random() * (canvas.height * 0.6);
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                for (let j = 0; j < 200; j++) {
+                    particles.push(new Particle(x, y, color));
+                }
+            }, i * 500);
+        }
+
+        function animate() {
+            if (canvas.style.display === 'none') return;
+            requestAnimationFrame(animate);
+            ctx.fillStyle = 'rgba(13, 9, 20, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, i) => {
+                if (particle.alpha <= 0) particles.splice(i, 1);
+                else particle.update();
+            });
+        }
+        animate();
+    }
     </script>
 </body>
 </html>
