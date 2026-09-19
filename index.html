@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 23rd Birthday, Kudakwashe! ❤️</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       CSS VARIABLES & THEME CONFIGURATION
+       ========================================== */
+    :root {
+      --bg-dark: #0a060d;
+      --bg-card: rgba(22, 14, 28, 0.75);
+      --bg-card-hover: rgba(35, 20, 45, 0.85);
+      
+      --accent-rose: #ff3366;
+      --accent-glow: #ff5e83;
+      --accent-gold: #ffd700;
+      --accent-wine: #e6004c;
+      
+      --text-main: #f8f5fa;
+      --text-muted: #b8a9c4;
+      --text-dim: #7a6888;
+      
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(255, 51, 102, 0.3);
+      
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-script: 'Caveat', cursive;
+      
+      --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      
+      --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --shadow-glow: 0 0 25px rgba(255, 51, 102, 0.25);
+    }
+
+    /* ==========================================
+       GLOBAL RESET & BASE STYLES
+       ========================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(255, 51, 102, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(230, 0, 76, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(120, 20, 60, 0.15) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, video {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 51, 102, 0.3);
+      border-radius: var(--radius-full);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-rose);
+    }
+
+    /* ==========================================
+       LAYOUT CONTAINERS
+       ========================================== */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-script);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--accent-rose);
+      margin-bottom: 0.25rem;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 30%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ==========================================
+       HERO SECTION
+       ========================================== */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 6rem 1.5rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vw;
+      height: 60vw;
+      max-width: 600px;
+      max-height: 600px;
+      background: radial-gradient(circle, rgba(255, 51, 102, 0.2) 0%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulse-glow 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulse-glow {
+      0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background: rgba(255, 51, 102, 0.1);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-full);
+      color: var(--accent-rose);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.75rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--accent-rose) 0%, #ff85a2 50%, var(--accent-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-wine), var(--accent-rose));
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(255, 51, 102, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    /* ==========================================
+       MEDIA CARDS & GRID SYSTEM
+       ========================================== */
+    .masonry-grid {
+      columns: 4 280px;
+      column-gap: 1.25rem;
+    }
+
+    .media-card {
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .media-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: var(--border-glow);
+      box-shadow: var(--shadow-glow);
+      z-index: 2;
+    }
+
+    .media-card img, 
+    .media-card video {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition-smooth);
+    }
+
+    .media-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .media-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 6, 13, 0.85) 0%, rgba(10, 6, 13, 0) 60%);
+      opacity: 0;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+    }
+
+    .media-card:hover .media-overlay {
+      opacity: 1;
+    }
+
+    .media-caption {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transform: translateY(10px);
+      transition: var(--transition-smooth);
+    }
+
+    .media-card:hover .media-caption {
+      transform: translateY(0);
+    }
+
+    /* ==========================================
+       SPECIAL FEATURE: LOVE LETTER SECTION
+       ========================================== */
+    .letter-section {
+      background: rgba(255, 51, 102, 0.03);
+      border-top: 1px solid var(--border-glass);
+      border-bottom: 1px solid var(--border-glass);
+      position: relative;
+    }
+
+    .letter-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      backdrop-filter: blur(15px);
+      box-shadow: var(--shadow-glass);
+    }
+
+    @media (min-width: 850px) {
+      .letter-wrapper {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+    }
+
+    .letter-image-box {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-glow);
+      box-shadow: var(--shadow-glow);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .letter-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-smooth);
+    }
+
+    .letter-image-box:hover img {
+      transform: scale(1.03);
+    }
+
+    .letter-text {
+      font-family: var(--font-body);
+    }
+
+    .letter-text h3 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--accent-rose);
+      margin-bottom: 1rem;
+    }
+
+    .letter-body {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      white-space: pre-line;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--accent-rose);
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-signature {
+      font-family: var(--font-script);
+      font-size: 2.25rem;
+      color: var(--accent-gold);
+      text-align: right;
+    }
+
+    /* ==========================================
+       VIDEO GRID SECTION
+       ========================================== */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border-glass);
+      aspect-ratio: 9 / 16;
+      box-shadow: var(--shadow-glass);
+      transition: var(--transition-smooth);
+    }
+
+    .video-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 2;
+    }
+
+    /* ==========================================
+       LIGHTBOX MODAL
+       ========================================== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 3, 8, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-fast);
+      padding: 2rem;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--border-glass);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-glass);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .lightbox-close:hover {
+      background: var(--accent-rose);
+      transform: rotate(90deg);
+    }
+
+    /* ==========================================
+       FOOTER
+       ========================================== */
+    footer {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      border-top: 1px solid var(--border-glass);
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    footer p span {
+      color: var(--accent-rose);
+    }
+
+    /* Mobile Tweaks */
+    @media (max-width: 640px) {
+      .section {
+        padding: 3.5rem 0;
+      }
+      .masonry-grid {
+        columns: 1 100%;
+      }
+      .letter-wrapper {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        Celebrating 23 Wonderful Years
+      </div>
+      <h1 class="hero-title">Happy Birthday,<br><span>Kudakwashe</span></h1>
+      <p class="hero-tagline">To the brightest smile, the warmest heart, and my favourite person in the entire world. Here is to celebrating you today and always.</p>
+      
+      <div class="hero-actions">
+        <a href="#gallery" class="btn btn-primary">
+          Explore Gallery
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </a>
+        <a href="#letter" class="btn btn-secondary">Read Love Note</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- GALLERY SECTION: PORTRAITS & SOLO SHOTS -->
+  <section id="gallery" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">Stunning As Always</div>
+        <h2 class="section-title">The Birthday Queen</h2>
+      </div>
+
+      <div class="masonry-grid">
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260118-WA0089.jpg" alt="Kuda outdoors leaning on post" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Radiant outdoors ✨</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260118-WA0090.jpg" alt="Kuda sitting outdoors with sunglasses" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Effortlessly stylish</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="20260412_150352.jpg" alt="Kuda in white jacket at the market" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">That bright smile 🤍</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="Four (1).jpg" alt="Kuda wearing cute graphic sweater" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Playful & cute</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20250919-WA0014.jpg" alt="Kuda in red top outdoors" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Golden hour magic</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20251231-WA0196.jpg" alt="Kuda holding flower bouquet" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Flowers for a flower 💐</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260102-WA0032.jpg" alt="Kuda golden selfie with flowers" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Sun-kissed beauty</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260214-WA0010.jpg" alt="Valentine surprise setting" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Valentine's Day magic ❤️</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260214-WA0011.jpg" alt="Kuda with teddy bear and champagne" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Celebration vibes</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260211-WA0070.jpg" alt="Kuda with red Valentine box" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Pure happiness</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260211-WA0071.jpg" alt="Kuda cute pucker expression" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Unfiltered joy 🌹</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HANDWRITTEN LOVE LETTER SECTION -->
+  <section id="letter" class="section letter-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">From The Heart</div>
+        <h2 class="section-title">A Special Note</h2>
+      </div>
+
+      <div class="letter-wrapper">
+        <div class="letter-image-box" onclick="openLightbox(this)">
+          <img src="IMG-20260215-WA0008.jpg" alt="Handwritten Valentine letter from Kevin to Kuda" loading="lazy">
+        </div>
+        
+        <div class="letter-text">
+          <h3>Happy Valentine's to my smartest, most beautiful girlfriend ever!!</h3>
+          <div class="letter-body">
+            "I'm so happy that I met you in my life. It's like I always get butterflies when I see u. Meeting u has unlocked features I didn't know existed. I love you so much baby. And I wish you could see yourself the way I see you. You mean more than I always manage to say out loud!
+
+            I hope to remember this day forever and I want to make you feel special, because you are! I love you Kuda, please don't stop being yourself around me."
+          </div>
+          <div class="letter-signature">With love, Kevin ❤️</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORIES & TOGETHERNESS SECTION -->
+  <section id="memories" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">Unforgettable Moments</div>
+        <h2 class="section-title">Memories & Surprises</h2>
+      </div>
+
+      <div class="masonry-grid">
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="20260110_122130.jpg" alt="Kevin and Kuda together selfie" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Us together 💑</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260101-WA0102.jpg" alt="Kuda with flowers and little girl with Pringles" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Family & laughter 🌻</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260211-WA0073.jpg" alt="Gift box filled with donuts and treats" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Sweet treats box 🍩</p>
+          </div>
+        </div>
+
+        <div class="media-card" onclick="openLightbox(this)">
+          <img src="IMG-20260217-WA0012.jpg" alt="Delicious baked muffin in pink box" loading="lazy">
+          <div class="media-overlay">
+            <p class="media-caption">Special homemade goodies 🧁</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION MEMORIES / VIDEOS SECTION -->
+  <section id="videos" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">In Motion</div>
+        <h2 class="section-title">Video Memories</h2>
+      </div>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Video
+          </div>
+          <video loop muted playsinline class="lazy-video" preload="none">
+            <source src="VID-20250915-WA0033.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="video-card">
+          <div class="video-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Video
+          </div>
+          <video loop muted playsinline class="lazy-video" preload="none">
+            <source src="VID-20250919-WA0015.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="video-card">
+          <div class="video-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Video
+          </div>
+          <video loop muted playsinline class="lazy-video" preload="none">
+            <source src="VID-20251204-WA0034.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="video-card">
+          <div class="video-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Video
+          </div>
+          <video loop muted playsinline class="lazy-video" preload="none">
+            <source src="VID-20260305-WA0000.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX CONTAINER -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img class="lightbox-content" id="lightbox-img" src="" alt="Full size preview">
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>Made with <span>&hearts;</span> for Kudakwashe's 23rd Birthday</p>
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE JAVASCRIPT -->
+  <script>
+    // Lightbox Functionality
+    function openLightbox(element) {
+      const img = element.querySelector('img');
+      if (img) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      }
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+    }
+
+    // Keyboard support for Lightbox
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Intersection Observer for Smart Auto-Playing Videos on Scroll
+    document.addEventListener("DOMContentLoaded", () => {
+      const lazyVideos = document.querySelectorAll('.lazy-video');
+
+      if ("IntersectionObserver" in window) {
+        const videoObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+              video.play().catch(() => {
+                // Autoplay muted fallbacks
+              });
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.4 });
+
+        lazyVideos.forEach((video) => {
+          videoObserver.observe(video);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
