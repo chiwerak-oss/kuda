@@ -242,23 +242,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        #sound-unlock {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, #ff007f, #ff4e50);
-            color: #fff;
-            padding: 12px 22px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(255, 0, 127, 0.5);
-            z-index: 10000;
-            animation: pulse 2s infinite;
-        }
-
         @keyframes pulse {
             0% { opacity: 0.6; }
             50% { opacity: 1; }
@@ -591,11 +574,7 @@
         </div>
         <div id="fireworks-msg">Happy Birthday Kuda</div>
         <canvas id="fireworksCanvas"></canvas>
-        <div id="sound-unlock">🔊 Tap for Sound</div>
     </div>
-
-    <!-- Fireworks sound effect, synced to the code-generated fireworks -->
-    <audio id="fireworks-audio" preload="auto" src="fireworksounds.mp3"></audio>
 
     <!-- Navigation Bar -->
     <nav>
@@ -755,33 +734,6 @@
         const fireworksCanvas = document.getElementById('fireworksCanvas');
         const fireworksMsg = document.getElementById('fireworks-msg');
         const loadingScreen = document.getElementById('loading-screen');
-        const soundUnlock = document.getElementById('sound-unlock');
-        const fireworksAudio = document.getElementById('fireworks-audio');
-
-        let audioUnlocked = false;
-        let fireworksSoundPlayed = false;
-
-        soundUnlock.addEventListener('click', () => {
-            audioUnlocked = true;
-            soundUnlock.style.display = 'none';
-            // If the fireworks moment already happened before the tap, play it now
-            if (fireworksSoundPlayed === 'pending') {
-                fireworksAudio.currentTime = 0;
-                fireworksAudio.play().catch(() => {});
-                fireworksSoundPlayed = true;
-            }
-        });
-
-        function playFireworksSound() {
-            if (audioUnlocked) {
-                fireworksAudio.currentTime = 0;
-                fireworksAudio.play().catch(() => {});
-                fireworksSoundPlayed = true;
-            } else {
-                // Mark that it wants to play - will fire the moment she taps
-                fireworksSoundPlayed = 'pending';
-            }
-        }
 
         const timer = setInterval(() => {
             count--;
@@ -793,7 +745,6 @@
                 fireworksCanvas.style.display = 'block';
                 fireworksMsg.classList.add('show');
                 startFireworks();
-                playFireworksSound();
                 startBackgroundMusic();
 
                 // Hold the fireworks a bit longer, then fade out slowly
