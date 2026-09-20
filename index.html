@@ -138,9 +138,9 @@
         }
 
         .music-select {
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             color: #dcd6df;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             font-size: 0.7rem;
             padding: 2px 6px;
@@ -223,9 +223,7 @@
             height: 88px;
             border-radius: 55px 55px 0 0;
             background: linear-gradient(135deg, #ff8fab 0%, #ff2d78 45%, #b8003f 100%);
-            box-shadow:
-                inset -8px -10px 16px rgba(0, 0, 0, 0.4),
-                inset 8px 10px 14px rgba(255, 255, 255, 0.35);
+            box-shadow: inset -8px -10px 16px rgba(0, 0, 0, 0.4), inset 8px 10px 14px rgba(255, 255, 255, 0.35);
         }
 
         .heart-shape::before {
@@ -395,7 +393,7 @@
             color: #dcd6df;
             line-height: 1.6;
             margin-bottom: 40px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .hero-buttons {
@@ -470,7 +468,7 @@
             border-radius: 14px;
             overflow: hidden;
             background: #000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .slideshow-viewport video {
@@ -538,7 +536,7 @@
             height: 100%;
             background: #a01a15;
             border-radius: 8px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
         }
 
         .flap {
@@ -578,7 +576,7 @@
             background: radial-gradient(circle, #ffd700, #b8860b);
             border-radius: 50%;
             z-index: 5;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             transition: opacity 0.3s;
         }
 
@@ -597,7 +595,7 @@
             overflow: hidden;
             color: #000;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             font-family: 'Georgia', serif;
         }
 
@@ -643,8 +641,8 @@
             height: 380px;
             object-fit: cover;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            background: rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -717,7 +715,6 @@
 
     <!-- Tap-to-unlock pill (backup, only shows if music still didn't start) -->
     <div id="music-unlock">🔊 Tap to start the music</div>
-
     <!-- Hidden audio element for background music -->
     <audio id="bg-audio" preload="auto"></audio>
 
@@ -728,7 +725,6 @@
         </div>
         <h1>Happy Birthday,<br><span class="gradient-text">Kudakwashe</span></h1>
         <p>To the brightest smile, the warmest heart, and my favourite person in the entire world. Here is to celebrating you today and always.</p>
-
         <div class="hero-buttons">
             <a href="#videos" class="btn btn-primary">Explore Gallery ↓</a>
             <a href="#envelope-section" class="btn btn-secondary">Read Love Note</a>
@@ -739,9 +735,9 @@
     <section id="videos">
         <h2 class="section-title">In Motion Memories</h2>
         <div class="slideshow-wrap">
-
-            <!-- Left Reel -->
-            <div class="slideshow-col">
+    
+        <!-- Left Reel -->
+        <div class="slideshow-col">
                 <div class="slideshow-col-label">Reel One</div>
                 <div class="slideshow-viewport">
                     <button class="slide-arrow prev" id="left-prev" aria-label="Previous video">‹</button>
@@ -750,9 +746,9 @@
                 </div>
                 <div class="slide-counter" id="left-counter"></div>
             </div>
-
-            <!-- Right Reel -->
-            <div class="slideshow-col">
+    
+        <!-- Right Reel -->
+        <div class="slideshow-col">
                 <div class="slideshow-col-label">Reel Two</div>
                 <div class="slideshow-viewport">
                     <button class="slide-arrow prev" id="right-prev" aria-label="Previous video">‹</button>
@@ -761,7 +757,6 @@
                 </div>
                 <div class="slide-counter" id="right-counter"></div>
             </div>
-
         </div>
     </section>
 
@@ -792,7 +787,6 @@
             <img src="IMG-20250908-WA0016.jpg" alt="Kudakwashe">
             <img src="IMG-20251020-WA0032.jpg" alt="Kudakwashe">
             <img src="IMG-20260327-WA0002.jpg" alt="Kudakwashe">
-            <img src="IMG-20260227-WA0000.jpg" alt="Kudakwashe">
             <img src="IMG-20260112-WA0049.jpg" alt="Kudakwashe">
         </div>
     </section>
@@ -816,7 +810,6 @@
     <section id="envelope-section">
         <h2 class="section-title">A Letter For You</h2>
         <p class="click-hint">(Tap the envelope to open)</p>
-
         <div class="envelope-wrapper" onclick="this.classList.toggle('open')">
             <div class="envelope">
                 <div class="flap"></div>
@@ -838,6 +831,16 @@
     document.addEventListener("DOMContentLoaded", () => {
 
         document.body.style.overflow = 'hidden';
+
+        // Fisher-Yates shuffle (returns a new shuffled array)
+        function shuffle(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
 
         /* ======================================================
            LOADING SCREEN: 3D Heart + Ring-Flip Countdown
@@ -876,7 +879,7 @@
 
         /* ======================================================
            FULL-PAGE BACKGROUND VIDEO PLAYLIST (behind content)
-           Cuts each video at 20 seconds
+           Plays in random order, cuts each video at 20 seconds
            ====================================================== */
         const memoryVideos = [
             'VID-20250915-WA0033.mp4',
@@ -899,16 +902,26 @@
         ];
         const BG_VIDEO_CUTOFF_SECONDS = 20;
 
+        let bgQueue = shuffle(memoryVideos);
         let currentBgIndex = 0;
         const bgVideo = document.getElementById('bg-video');
 
         function playNextBackgroundVideo() {
-            currentBgIndex = (currentBgIndex + 1) % memoryVideos.length;
-            bgVideo.src = memoryVideos[currentBgIndex];
+            currentBgIndex++;
+            if (currentBgIndex >= bgQueue.length) {
+                const last = bgQueue[bgQueue.length - 1];
+                bgQueue = shuffle(memoryVideos);
+                // don't repeat the same clip back-to-back after a reshuffle
+                if (bgQueue[0] === last) {
+                    [bgQueue[0], bgQueue[1]] = [bgQueue[1], bgQueue[0]];
+                }
+                currentBgIndex = 0;
+            }
+            bgVideo.src = bgQueue[currentBgIndex];
             bgVideo.play().catch(e => console.log("Autoplay restricted:", e));
         }
 
-        bgVideo.src = memoryVideos[currentBgIndex];
+        bgVideo.src = bgQueue[currentBgIndex];
         bgVideo.play().catch(e => console.log("Autoplay restricted:", e));
 
         bgVideo.addEventListener('timeupdate', () => {
@@ -921,6 +934,7 @@
 
         /* ======================================================
            IN MOTION MEMORIES: TWO-COLUMN SLIDESHOW
+           Videos play in random order
            ====================================================== */
         const leftVideos = [
             'VID-20250915-WA0033.mp4',
@@ -946,13 +960,24 @@
         ];
 
         function setupSlideshow(videos, videoEl, counterEl) {
+            let queue = shuffle(videos);
             let idx = 0;
 
             function show(i) {
-                idx = (i + videos.length) % videos.length;
-                videoEl.src = videos[idx];
+                if (i >= queue.length) {
+                    const last = queue[queue.length - 1];
+                    queue = shuffle(videos);
+                    if (queue.length > 1 && queue[0] === last) {
+                        [queue[0], queue[1]] = [queue[1], queue[0]];
+                    }
+                    i = 0;
+                } else if (i < 0) {
+                    i = queue.length - 1;
+                }
+                idx = i;
+                videoEl.src = queue[idx];
                 videoEl.play().catch(() => {});
-                counterEl.textContent = (idx + 1) + ' / ' + videos.length;
+                counterEl.textContent = (idx + 1) + ' / ' + queue.length;
             }
 
             show(0);
@@ -1150,7 +1175,6 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             for (let i = pieces.length - 1; i >= 0; i--) {
                 const p = pieces[i];
                 p.update();
@@ -1159,7 +1183,6 @@
                     pieces.splice(i, 1);
                 }
             }
-
             if (spawning || pieces.length > 0) {
                 requestAnimationFrame(animate);
             } else {
