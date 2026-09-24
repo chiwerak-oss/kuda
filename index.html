@@ -15,6 +15,9 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
+        html { scroll-padding-top: 8rem; }
+        section { scroll-margin-top: 8rem; }
+        :focus-visible { outline: 3px solid #ffd166; outline-offset: 4px; }
 
         /* === Full-Page Background Video Playlisst === */
         .video-background-container {
@@ -70,6 +73,7 @@
             backdrop-filter: blur(10px);
             z-index: 100;
             border-bottom: 1px solid rgba(255, 105, 180, 0.1);
+            box-sizing: border-box;
         }
 
         nav a {
@@ -146,25 +150,6 @@
             padding: 2px 6px;
             max-width: 150px;
             cursor: pointer;
-        }
-
-        /* Tap-to-play fallback pill for the music player */
-        #music-unlock {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, #ff007f, #ff4e50);
-            color: #fff;
-            padding: 12px 22px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(255, 0, 127, 0.5);
-            z-index: 200;
-            display: none;
-            animation: pulse 2s infinite;
         }
 
         /* === Ribbon/Confetti Shower === */
@@ -646,6 +631,30 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+        .media-grid img { cursor: zoom-in; }
+
+        .photo-viewer {
+            width: min(92vw, 1100px);
+            max-width: none;
+            max-height: 92vh;
+            padding: 0;
+            border: 1px solid rgba(255, 105, 180, 0.4);
+            border-radius: 16px;
+            color: #fff;
+            background: #130d1a;
+            box-shadow: 0 20px 70px rgba(0, 0, 0, .7);
+        }
+        .photo-viewer::backdrop { background: rgba(5, 3, 9, .88); backdrop-filter: blur(6px); }
+        .photo-viewer img { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto; object-fit: contain; }
+        .photo-viewer-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; }
+        .photo-viewer button { border: 1px solid rgba(255,255,255,.22); border-radius: 999px; padding: 8px 14px; color: #fff; background: #211829; cursor: pointer; }
+        .photo-viewer button:hover { background: #49203c; }
+        #photo-caption { flex: 1; margin: 0; color: #e7dce9; text-align: center; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        }
+
         .media-grid img:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3);
@@ -653,9 +662,14 @@
 
         @media (max-width: 640px) {
             nav {
-                gap: 12px;
-                padding: 10px;
+                gap: 8px 12px;
+                padding: 8px 10px;
             }
+            html { scroll-padding-top: 10rem; }
+            section { scroll-margin-top: 10rem; }
+            nav a { font-size: .92rem; }
+            .music-player { gap: 4px; padding: 4px 8px; }
+            .music-player button { width: 30px; height: 30px; }
 
             .music-info {
                 display: none;
@@ -680,6 +694,9 @@
             .section-title {
                 font-size: 2rem;
             }
+            .envelope-wrapper { width: min(320px, calc(100vw - 40px)); }
+            .letter { width: calc(100% - 20px); left: 10px; }
+            .flap, .pocket { border-left-width: calc(min(320px, 100vw - 40px) / 2); border-right-width: calc(min(320px, 100vw - 40px) / 2); }
         }
     </style>
 </head>
@@ -687,45 +704,23 @@
 
     <!-- Full-Page Background Video Playlist Container -->
     <div class="video-background-container">
-        <video id="bg-video" autoplay muted playsinline></video>
-    </div>
-
-    <!-- Loading Screen: 3D Heart + Ring-Flip Countdown -->
-    <div id="loading-screen">
-        <div class="intro-stage">
-            <div class="heart-3d">
-                <div class="heart-shape">
-                    <div class="heart-highlight"></div>
-                </div>
-                <div class="heart-shadow"></div>
-            </div>
-            <div class="countdown-ring-wrap">
-                <svg class="countdown-ring" viewBox="0 0 120 120">
-                    <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
-                    <circle class="ring-progress" id="ringProgress" cx="60" cy="60" r="54"></circle>
-                </svg>
-                <div class="flip-digit-wrap">
-                    <span class="flip-digit" id="flipDigit">3</span>
-                </div>
-            </div>
-        </div>
+        <video id="bg-video" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
 
     <!-- Ribbon/Confetti Shower Overlay (plays as the main menu opens) -->
-    <canvas id="showerCanvas"></canvas>
 
     <!-- Navigation Bar -->
-    <nav>
+    <nav aria-label="Main navigation">
         <a href="#videos">In Motion</a>
         <a href="#gallery">Gallery</a>
         <a href="#memories">Memories</a>
         <a href="#envelope-section">Love Note</a>
 
         <!-- Music Player -->
-        <div class="music-player">
-            <button id="prev-btn" title="Previous song">⏮</button>
-            <button id="play-pause-btn" title="Play / Pause">⏸</button>
-            <button id="next-btn" title="Next song">⏭</button>
+            <div class="music-player" role="group" aria-label="Music player">
+            <button id="prev-btn" type="button" aria-label="Previous song" title="Previous song">⏮</button>
+            <button id="play-pause-btn" type="button" aria-label="Play music" aria-pressed="false" title="Play music">▶</button>
+            <button id="next-btn" type="button" aria-label="Next song" title="Next song">⏭</button>
             <div class="music-info">
                 <span class="music-title" id="music-title">Loading...</span>
                 <select class="music-select" id="music-select" title="Choose a song"></select>
@@ -734,9 +729,8 @@
     </nav>
 
     <!-- Tap-to-unlock pill (backup, only shows if music still didn't start) -->
-    <div id="music-unlock">🔊 Tap to start the music</div>
     <!-- Hidden audio element for background music -->
-    <audio id="bg-audio" preload="auto"></audio>
+    <audio id="bg-audio" preload="none"></audio>
 
     <!-- Hero / Header -->
     <section class="hero" id="home">
@@ -761,7 +755,7 @@
                 <div class="slideshow-col-label">Reel One</div>
                 <div class="slideshow-viewport">
                     <button class="slide-arrow prev" id="left-prev" aria-label="Previous video">‹</button>
-                    <video id="left-video" autoplay muted playsinline></video>
+                    <video id="left-video" muted playsinline preload="none" controls aria-label="Memory reel one"></video>
                     <button class="slide-arrow next" id="left-next" aria-label="Next video">›</button>
                 </div>
                 <div class="slide-counter" id="left-counter"></div>
@@ -772,7 +766,7 @@
                 <div class="slideshow-col-label">Reel Two</div>
                 <div class="slideshow-viewport">
                     <button class="slide-arrow prev" id="right-prev" aria-label="Previous video">‹</button>
-                    <video id="right-video" autoplay muted playsinline></video>
+                    <video id="right-video" muted playsinline preload="none" controls aria-label="Memory reel two"></video>
                     <button class="slide-arrow next" id="right-next" aria-label="Next video">›</button>
                 </div>
                 <div class="slide-counter" id="right-counter"></div>
@@ -830,7 +824,7 @@
     <section id="envelope-section">
         <h2 class="section-title">A Letter For You</h2>
         <p class="click-hint">(Tap the envelope to open)</p>
-        <div class="envelope-wrapper" onclick="this.classList.toggle('open')">
+        <div class="envelope-wrapper" role="button" tabindex="0" aria-expanded="false" aria-label="Open birthday letter">
             <div class="envelope">
                 <div class="flap"></div>
                 <div class="seal"></div>
@@ -847,10 +841,18 @@
         </div>
     </section>
 
+    <dialog class="photo-viewer" id="photo-viewer" aria-label="Photo viewer">
+        <div class="photo-viewer-bar">
+            <button type="button" id="photo-prev" aria-label="Previous photo">‹</button>
+            <p id="photo-caption" aria-live="polite"></p>
+            <button type="button" id="photo-next" aria-label="Next photo">›</button>
+            <button type="button" id="photo-close" aria-label="Close photo viewer">Close</button>
+        </div>
+        <img id="photo-large" alt="">
+    </dialog>
+
     <script>
     document.addEventListener("DOMContentLoaded", () => {
-
-        document.body.style.overflow = 'hidden';
 
         // Fisher-Yates shuffle (returns a new shuffled array)
         function shuffle(arr) {
@@ -862,40 +864,7 @@
             return a;
         }
 
-        /* ======================================================
-           LOADING SCREEN: 3D Heart + Ring-Flip Countdown
-           - Ring visually drains over exactly 3 seconds
-           - The number flips like a mechanical flip-clock digit
-             each second instead of just swapping text
-           - When it hits zero, fades out into the main menu,
-             triggering the ribbon/confetti shower + music
-           ====================================================== */
-        const flipDigit = document.getElementById('flipDigit');
-        const loadingScreen = document.getElementById('loading-screen');
-        let count = 3;
-
-        const timer = setInterval(() => {
-            count--;
-            if (count > 0) {
-                flipDigit.classList.add('flip-out');
-                setTimeout(() => {
-                    flipDigit.textContent = count;
-                    flipDigit.classList.remove('flip-out');
-                }, 350);
-            } else {
-                clearInterval(timer);
-                flipDigit.classList.add('flip-out');
-                setTimeout(() => {
-                    loadingScreen.style.opacity = '0';
-                    startShower();
-                    startBackgroundMusic();
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                        document.body.style.overflow = '';
-                    }, 1500);
-                }, 350);
-            }
-        }, 1000);
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         /* ======================================================
            FULL-PAGE BACKGROUND VIDEO PLAYLIST (behind content)
@@ -938,11 +907,11 @@
                 currentBgIndex = 0;
             }
             bgVideo.src = bgQueue[currentBgIndex];
-            bgVideo.play().catch(e => console.log("Autoplay restricted:", e));
+            if (!reducedMotion) bgVideo.play().catch(() => {});
         }
 
         bgVideo.src = bgQueue[currentBgIndex];
-        bgVideo.play().catch(e => console.log("Autoplay restricted:", e));
+        if (!reducedMotion) bgVideo.play().catch(() => {});
 
         bgVideo.addEventListener('timeupdate', () => {
             if (bgVideo.currentTime >= BG_VIDEO_CUTOFF_SECONDS) {
@@ -996,7 +965,8 @@
                 }
                 idx = i;
                 videoEl.src = queue[idx];
-                videoEl.play().catch(() => {});
+                if (!reducedMotion) videoEl.play().catch(() => {});
+                else videoEl.pause();
                 counterEl.textContent = (idx + 1) + ' / ' + queue.length;
             }
 
@@ -1046,7 +1016,6 @@
         const nextBtn = document.getElementById('next-btn');
         const musicTitleEl = document.getElementById('music-title');
         const musicSelectEl = document.getElementById('music-select');
-        const musicUnlockEl = document.getElementById('music-unlock');
 
         playlist.forEach((track, i) => {
             const opt = document.createElement('option');
@@ -1063,30 +1032,32 @@
             musicSelectEl.value = currentTrackIndex;
             if (autoplay) {
                 audio.play().then(() => {
-                    playPauseBtn.textContent = '⏸';
-                    musicUnlockEl.style.display = 'none';
+                    syncMusicButton(true);
                 }).catch(() => {
-                    playPauseBtn.textContent = '▶';
-                    musicUnlockEl.style.display = 'block';
+                    musicTitleEl.textContent = 'Could not play this track';
+                    syncMusicButton(false);
                 });
             }
         }
 
-        function startBackgroundMusic() {
-            loadTrack(0, true);
+        function syncMusicButton(playing) {
+            playPauseBtn.textContent = playing ? '⏸' : '▶';
+            playPauseBtn.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+            playPauseBtn.setAttribute('title', playing ? 'Pause music' : 'Play music');
+            playPauseBtn.setAttribute('aria-pressed', String(playing));
         }
 
         playPauseBtn.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play().then(() => {
-                    playPauseBtn.textContent = '⏸';
-                    musicUnlockEl.style.display = 'none';
+                    syncMusicButton(true);
                 }).catch(() => {
-                    musicUnlockEl.style.display = 'block';
+                    musicTitleEl.textContent = 'Could not play this track';
+                    syncMusicButton(false);
                 });
             } else {
                 audio.pause();
-                playPauseBtn.textContent = '▶';
+                syncMusicButton(false);
             }
         });
 
@@ -1094,14 +1065,58 @@
         nextBtn.addEventListener('click', () => loadTrack(currentTrackIndex + 1, true));
         musicSelectEl.addEventListener('change', (e) => loadTrack(parseInt(e.target.value, 10), true));
         audio.addEventListener('ended', () => loadTrack(currentTrackIndex + 1, true));
-        musicUnlockEl.addEventListener('click', () => {
-            audio.play().then(() => {
-                playPauseBtn.textContent = '⏸';
-                musicUnlockEl.style.display = 'none';
-            });
-        });
+        audio.addEventListener('play', () => syncMusicButton(true));
+        audio.addEventListener('pause', () => syncMusicButton(false));
+        audio.addEventListener('error', () => { musicTitleEl.textContent = 'Track unavailable'; syncMusicButton(false); });
 
         loadTrack(0, false);
+
+        // Let visitors inspect photos at full size without losing their place.
+        const galleryImages = [...document.querySelectorAll('.media-grid img')];
+        galleryImages.forEach((img, index) => {
+            img.loading = index < 4 ? 'eager' : 'lazy';
+            img.decoding = 'async';
+            img.tabIndex = 0;
+            img.setAttribute('role', 'button');
+            img.setAttribute('aria-label', `View photo: ${img.alt || 'Photo'}`);
+        });
+        const viewer = document.getElementById('photo-viewer');
+        const largePhoto = document.getElementById('photo-large');
+        const caption = document.getElementById('photo-caption');
+        let photoIndex = 0;
+        function showPhoto(index) {
+            photoIndex = (index + galleryImages.length) % galleryImages.length;
+            const source = galleryImages[photoIndex];
+            largePhoto.src = source.currentSrc || source.src;
+            largePhoto.alt = source.alt;
+            caption.textContent = `${source.alt || 'Photo'} · ${photoIndex + 1} of ${galleryImages.length}`;
+        }
+        galleryImages.forEach((img, index) => {
+            const open = () => { showPhoto(index); viewer.showModal(); };
+            img.addEventListener('click', open);
+            img.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+            });
+        });
+        document.getElementById('photo-prev').addEventListener('click', () => showPhoto(photoIndex - 1));
+        document.getElementById('photo-next').addEventListener('click', () => showPhoto(photoIndex + 1));
+        document.getElementById('photo-close').addEventListener('click', () => viewer.close());
+        viewer.addEventListener('click', (event) => { if (event.target === viewer) viewer.close(); });
+        viewer.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') showPhoto(photoIndex - 1);
+            if (event.key === 'ArrowRight') showPhoto(photoIndex + 1);
+        });
+
+        const envelope = document.querySelector('.envelope-wrapper');
+        function toggleEnvelope() {
+            const opened = envelope.classList.toggle('open');
+            envelope.setAttribute('aria-expanded', String(opened));
+            envelope.setAttribute('aria-label', opened ? 'Close birthday letter' : 'Open birthday letter');
+        }
+        envelope.addEventListener('click', toggleEnvelope);
+        envelope.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggleEnvelope(); }
+        });
     });
 
     /* === Ribbon & Confetti Shower (plays as the main menu opens) === */
